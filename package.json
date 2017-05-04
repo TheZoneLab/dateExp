@@ -2,9 +2,9 @@
   "name": "dateexp",
   "version": "1.0.0",
   "description": "A seriable way to express dynamic dates",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,9 @@
   "homepage": "https://github.com/TheZoneLab/dateExp#readme",
   "dependencies": {
     "moment": "^2.18.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.3.0"
   }
 }

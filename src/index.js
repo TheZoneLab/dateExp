@@ -5,7 +5,6 @@ const moment = require('moment')
 
 const evalExpression = (expression) => {
   const evalRegex = /(\D+)\.(\d+)\.(\D+)/g
-  console.log(evalRegex, expression)
   const [full, operation, amount, type] = evalRegex.exec(expression)
   return [operation, amount, type]
 }
@@ -27,7 +26,7 @@ module.exports = function (string) {
   } else {
     startingPointMoment = moment(startingPoint)
   }
-  
+
   finalMoment = operations.reduce((agg, expression) => {
     const [operation, amount, type] = evalExpression(expression)
     return agg[operation](amount, type)
@@ -35,5 +34,3 @@ module.exports = function (string) {
 
   return finalMoment
 }
-
-console.log(module.exports('today:add.1.day:subtract.2.days'))
