@@ -1,22 +1,22 @@
-const moment = require('moment')
+var moment = require('moment')
 
 //  Syntax
 //  [date or [today|tomorrow|yesterday]:operations...]
 
-const evalExpression = (expression) => {
-  const evalRegex = /(\D+)\.(\d+)\.(\D+)/g
-  const [full, operation, amount, type] = evalRegex.exec(expression)
+var evalExpression = function (expression) {
+  var evalRegex = /(\D+)\.(\d+)\.(\D+)/g
+  var [full, operation, amount, type] = evalRegex.exec(expression)
   return [operation, amount, type]
 }
 
 module.exports = function (string) {
-  const startingPointsMap = {
+  var startingPointsMap = {
     'today': moment(),
     'tomorrow': moment().add(1, 'day'),
     'yesterday': moment().subtract(1, 'day')
   }
 
-  const [startingPoint, ...operations] = string.split(':')
+  var [startingPoint, ...operations] = string.split(':')
 
   let startingPointMoment
   let finalMoment
@@ -27,8 +27,8 @@ module.exports = function (string) {
     startingPointMoment = moment(startingPoint)
   }
 
-  finalMoment = operations.reduce((agg, expression) => {
-    const [operation, amount, type] = evalExpression(expression)
+  finalMoment = operations.reduce(function (agg, expression) {
+    var [operation, amount, type] = evalExpression(expression)
     return agg[operation](amount, type)
   }, startingPointMoment)
 
