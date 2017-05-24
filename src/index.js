@@ -5,7 +5,10 @@ var moment = require('moment')
 
 var evalExpression = function (expression) {
   var evalRegex = /(\D+)\.(\d+)\.(\D+)/g
-  var [full, operation, amount, type] = evalRegex.exec(expression)
+  var executedRegex = evalRegex.exec(expression)
+  var operation = executedRegex[1]
+  var amount = executedRegex[2]
+  var type = executedRegex[3]
   return [operation, amount, type]
 }
 
@@ -16,10 +19,11 @@ module.exports = function (string) {
     'yesterday': moment().subtract(1, 'day')
   }
 
-  var [startingPoint, ...operations] = string.split(':')
+  var operations = string.split(':')
+  var startingPoint = operations.shift()
 
-  let startingPointMoment
-  let finalMoment
+  var startingPointMoment
+  var finalMoment
 
   if (Object.keys(startingPointsMap).includes(startingPoint)) {
     startingPointMoment = startingPointsMap[startingPoint]
@@ -28,7 +32,10 @@ module.exports = function (string) {
   }
 
   finalMoment = operations.reduce(function (agg, expression) {
-    var [operation, amount, type] = evalExpression(expression)
+    var evaluatedExpression = evalExpression(expression)
+    var operation = evaluatedExpression[0]
+    var amount = evaluatedExpression[1]
+    var type = evaluatedExpression[2]
     return agg[operation](amount, type)
   }, startingPointMoment)
 
