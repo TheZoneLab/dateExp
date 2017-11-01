@@ -1,10 +1,11 @@
 {
   "name": "dateexp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A seriable way to express dynamic dates",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "test:debug": "mocha debug"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,7 @@
     "moment": "^2.18.1"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^3.3.0"
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1"
   }
 }
