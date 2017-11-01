@@ -45,16 +45,17 @@ describe('DateExp', () => {
     const FORMAT_CASES = [
       'YYYY/MM/DD',
       'YYYY-MM-DD',
-      'YYYY_MM_DD'
+      'YYYY_MM_DD',
+      '\'YYYY.MM.DD\''
     ]
     for (var j = 0; j < FORMAT_CASES.length; j++) {
-      describe(`Testing date format : '${FORMAT_CASES[j]}'`, () => {
+      describe(`Testing date format : "${FORMAT_CASES[j]}"`, () => {
         const DATE_FORMAT = FORMAT_CASES[j]
         for (var i = 0; i < TEST_CASES.length; i++) {
           const [expression, expected] = TEST_CASES[i]
-          const expectedString = expected().format(DATE_FORMAT)
+          const expectedString = expected().format((FORMAT_CASES[j].startsWith('\'')) ? FORMAT_CASES[j].substr(1, FORMAT_CASES[j].length - 2) : FORMAT_CASES[j])
           const expressionWithFormat = expression + ':format.' + DATE_FORMAT
-          it(`Should format '${expressionWithFormat}' to '${expectedString}'`, () => {
+          it(`Should format "${expressionWithFormat}" to '${expectedString}'`, () => {
             assert.equal(dateExp(expressionWithFormat), expectedString)
           })
         }

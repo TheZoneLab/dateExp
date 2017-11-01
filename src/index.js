@@ -6,8 +6,16 @@ var moment = require('moment')
 //  [date or [today|tomorrow|yesterday]:operations...]
 
 var evalExpression = function (expression) {
-  var evalRegex = /(\D+)\.([a-zA-Z0-9_\-\/]+)(?:\.(\D+))?/g
-  return evalRegex.exec(expression).slice(1)
+  var evalRegex = /('[^']+'|[^\.]+)/g
+  var current, results = []
+  while (current = evalRegex.exec(expression)) {
+    if (current[0].startsWith('\'') && current[0].endsWith('\'')) {
+      results.push(current[0].substr(1, current[0].length - 2))
+    } else {
+      results.push(current[0])
+    }
+  }
+  return results
 }
 
 module.exports = function (string) {
