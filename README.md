@@ -30,7 +30,20 @@ They follow the following format: `operation.amount.type`
 
 ## Example
 
+To return a specific date based on today value :
 ```
 dateExp('today:add.1.day:subtract.2.days')
 # Return moment date : today - 1 day
+```
+
+To format a date :
+```
+dateExp('today:add.1.day:subtract.2.days:format.YYYY-MM-DD')
+# Return a date with the format '2017-08-16'
+```
+
+And if your format contains dots :
+```
+dateExp('today:add.1.day:subtract.2.days:format.\'YYYY.MM.DD\'')
+# Return a date with the format '2017.08.16'
 ```
